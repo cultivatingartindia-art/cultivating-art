@@ -1,0 +1,913 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cultivating Art — Milestones</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+
+/* ==========================================
+   MAIN SCROLL SECTION
+========================================== */
+
+.milestone-animation {
+  position: relative;
+  height: 520vh;
+}
+
+
+/* ==========================================
+   STICKY SCREEN
+========================================== */
+
+.sticky {
+  position: sticky;
+  top: 0;
+
+  height: 100vh;
+  min-height: 520px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: #fff;
+}
+
+
+/* ==========================================
+   STAGE
+========================================== */
+
+.stage {
+  position: relative;
+
+  width: min(92vw, 1050px);
+  height: min(70vh, 620px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ==========================================
+   ORIGINAL LOGO
+========================================== */
+
+.logo {
+  position: absolute;
+
+  width: min(62vw, 430px);
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  z-index: 5;
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.12);
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+
+/* ==========================================
+   LOGO TEXT FADE
+========================================== */
+
+.logo-text-fade {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 37%;
+  height: 31%;
+
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,.18) 15%,
+      rgba(255,255,255,.62) 48%,
+      rgba(255,255,255,.18) 85%,
+      rgba(255,255,255,0)
+    );
+
+  pointer-events: none;
+}
+
+
+/* ==========================================
+   FINAL MILESTONE CARD
+========================================== */
+
+.card {
+  position: absolute;
+
+  width: min(92vw, 1050px);
+  height: min(70vh, 620px);
+
+  border-radius: 26px;
+
+  overflow: hidden;
+
+  display: grid;
+
+  /* 7 HORIZONTAL ROWS */
+  grid-template-rows: repeat(7, 1fr);
+
+  opacity: 0;
+
+  transform: scale(.72);
+
+  /* GOLD BORDER */
+  border: 5px solid #D4AF37;
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.16);
+}
+
+
+/* ==========================================
+   HORIZONTAL COLOURED ROWS
+========================================== */
+
+.row {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 35px;
+
+  text-align: center;
+
+  overflow: hidden;
+
+  transform: translateY(0);
+
+  opacity: 0;
+}
+
+
+/* ==========================================
+   COLOURS
+========================================== */
+
+.row:nth-child(2) {
+  background: #d92724;
+}
+
+.row:nth-child(3) {
+  background: #eca800;
+}
+
+.row:nth-child(4) {
+  background: #f4cc00;
+}
+
+.row:nth-child(5) {
+  background: #45a928;
+}
+
+.row:nth-child(6) {
+  background: #3e5fa8;
+}
+
+.row:nth-child(7) {
+  background: #41478e;
+}
+
+.row:nth-child(8) {
+  background: #754187;
+}
+
+
+/* ==========================================
+   MILESTONE CONTENT
+========================================== */
+
+.row-content {
+  display: flex;
+
+  align-items: baseline;
+  justify-content: center;
+
+  gap: 16px;
+
+  width: 100%;
+}
+
+.big {
+  font-size:
+    clamp(1.5rem, 3.4vw, 3.2rem);
+
+  line-height: 1;
+
+  font-weight: 900;
+
+  letter-spacing: -.03em;
+
+  white-space: nowrap;
+
+  color: white;
+}
+
+.small {
+  font-size:
+    clamp(.72rem, 1.45vw, 1.15rem);
+
+  font-weight: 700;
+
+  letter-spacing: .06em;
+
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  color: white;
+}
+
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.card-heading {
+  position: absolute;
+
+  top: -62px;
+
+  left: 0;
+  right: 0;
+
+  color: #222;
+
+  text-align: center;
+
+  font-size:
+    clamp(1.2rem, 2.4vw, 2rem);
+
+  font-weight: 800;
+
+  opacity: 0;
+
+  transform: translateY(15px);
+}
+
+
+/* ==========================================
+   SCROLL HINT
+========================================== */
+
+.hint {
+  position: absolute;
+
+  bottom: 28px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: #555;
+
+  font-size: 11px;
+
+  letter-spacing: .18em;
+
+  text-transform: uppercase;
+
+  text-align: center;
+
+  z-index: 20;
+}
+
+.arrow {
+  display: block;
+
+  font-size: 25px;
+
+  margin-top: 5px;
+
+  animation:
+    bounce 1.5s ease-in-out infinite;
+}
+
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+
+  .milestone-animation {
+    height: 480vh;
+  }
+
+  .stage {
+    width: 94vw;
+    height: 68vh;
+  }
+
+  .card {
+    width: 94vw;
+    height: 62vh;
+
+    border-radius: 18px;
+
+    border-width: 4px;
+  }
+
+  .row {
+    padding: 8px 10px;
+  }
+
+  .row-content {
+    gap: 8px;
+
+    flex-direction: column;
+
+    align-items: center;
+  }
+
+  .small {
+    white-space: normal;
+  }
+
+  .card-heading {
+    top: -48px;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     MILESTONE ANIMATION
+========================================== -->
+
+<section
+  class="milestone-animation"
+  id="story"
+>
+
+  <div class="sticky">
+
+    <div class="stage">
+
+
+      <!-- ======================================
+           LOGO
+      ======================================= -->
+
+      <div
+        class="logo"
+        id="logo"
+      >
+
+        <!-- LOGO FILE -->
+        <img
+          src="Logogoldcircle.png"
+          alt="Cultivating Art Logo"
+        >
+
+        <div
+          class="logo-text-fade"
+          id="textFade"
+        ></div>
+
+      </div>
+
+
+      <!-- ======================================
+           MILESTONE CARD
+      ======================================= -->
+
+      <div
+        class="card"
+        id="card"
+      >
+
+        <div
+          class="card-heading"
+          id="heading"
+        >
+          Our Milestones
+        </div>
+
+
+        <!-- 1 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              30,000+
+            </span>
+
+            <span class="small">
+              Participants
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 2 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              3 Lakh+
+            </span>
+
+            <span class="small">
+              Cash Prizes
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 3 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              100+
+            </span>
+
+            <span class="small">
+              School Awards
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 4 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              25+
+            </span>
+
+            <span class="small">
+              District Level Events
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 5 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              2
+            </span>
+
+            <span class="small">
+              State Level Events
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 6 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              100%
+            </span>
+
+            <span class="small">
+              Name Printed Certificates
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 7 -->
+
+        <div class="row">
+
+          <div class="row-content">
+
+            <span class="big">
+              FREE
+            </span>
+
+            <span class="small">
+              Water Colours / Crayons
+            </span>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <!-- SCROLL MESSAGE -->
+
+    <div
+      class="hint"
+      id="hint"
+    >
+
+      Scroll to explore
+
+      <span class="arrow">
+        ↓
+      </span>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<script>
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const story =
+  document.getElementById("story");
+
+const logo =
+  document.getElementById("logo");
+
+const textFade =
+  document.getElementById("textFade");
+
+const card =
+  document.getElementById("card");
+
+const heading =
+  document.getElementById("heading");
+
+const rows =
+  document.querySelectorAll(".row");
+
+const hint =
+  document.getElementById("hint");
+
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+function clamp(value, min, max) {
+
+  return Math.min(
+    Math.max(value, min),
+    max
+  );
+
+}
+
+
+function ease(value) {
+
+  return value *
+         value *
+         (3 - 2 * value);
+
+}
+
+
+/* ==========================================
+   MAIN ANIMATION
+========================================== */
+
+function update() {
+
+  const rect =
+    story.getBoundingClientRect();
+
+  const scrollable =
+    story.offsetHeight -
+    window.innerHeight;
+
+  let progress =
+    clamp(
+      -rect.top / scrollable,
+      0,
+      1
+    );
+
+
+  /* ========================================
+     CIRCLE → RECTANGLE
+  ======================================== */
+
+  const shapeProgress =
+    ease(
+      clamp(
+        (progress - .12) / .30,
+        0,
+        1
+      )
+    );
+
+
+  const logoSize =
+    Math.min(
+      window.innerWidth * .62,
+      430
+    );
+
+
+  const cardWidth =
+    Math.min(
+      window.innerWidth * .92,
+      1050
+    );
+
+
+  const cardHeight =
+    Math.min(
+      window.innerHeight * .70,
+      620
+    );
+
+
+  const width =
+    logoSize +
+    (
+      cardWidth -
+      logoSize
+    ) *
+    shapeProgress;
+
+
+  const height =
+    logoSize +
+    (
+      cardHeight -
+      logoSize
+    ) *
+    shapeProgress;
+
+
+  logo.style.width =
+    width + "px";
+
+  logo.style.height =
+    height + "px";
+
+
+  logo.style.borderRadius =
+    (
+      50 -
+      50 * shapeProgress
+    ) + "%";
+
+
+  /* ========================================
+     FADE LOGO TEXT
+  ======================================== */
+
+  textFade.style.opacity =
+    clamp(
+      (progress - .10) / .25,
+      0,
+      1
+    );
+
+
+  /* ========================================
+     FADE ORIGINAL LOGO
+  ======================================== */
+
+  logo.style.opacity =
+    1 -
+    clamp(
+      (progress - .34) / .18,
+      0,
+      1
+    );
+
+
+  /* ========================================
+     SHOW COLOURED CARD
+  ======================================== */
+
+  const cardProgress =
+    ease(
+      clamp(
+        (progress - .30) / .28,
+        0,
+        1
+      )
+    );
+
+
+  card.style.opacity =
+    cardProgress;
+
+
+  card.style.transform =
+    `scale(${.72 + .28 * cardProgress})`;
+
+
+  /* ========================================
+     SHOW ALL 7 ROWS
+  ======================================== */
+
+  rows.forEach(
+    (row, index) => {
+
+      const start =
+        .32 +
+        index * .045;
+
+      const localProgress =
+        ease(
+          clamp(
+            (
+              progress -
+              start
+            ) / .13,
+            0,
+            1
+          )
+        );
+
+
+      row.style.opacity =
+        localProgress;
+
+
+      row.style.transform =
+        `translateY(
+          ${35 - 35 * localProgress}px
+        )`;
+
+    }
+  );
+
+
+  /* ========================================
+     FINAL HEADING
+  ======================================== */
+
+  const headingProgress =
+    ease(
+      clamp(
+        (progress - .78) / .18,
+        0,
+        1
+      )
+    );
+
+
+  heading.style.opacity =
+    headingProgress;
+
+
+  heading.style.transform =
+    `translateY(
+      ${15 - 15 * headingProgress}px
+    )`;
+
+
+  /* ========================================
+     HIDE SCROLL HINT
+  ======================================== */
+
+  hint.style.opacity =
+    1 -
+    clamp(
+      progress / .12,
+      0,
+      1
+    );
+
+}
+
+
+/* ==========================================
+   SCROLL EVENT
+========================================== */
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    requestAnimationFrame(
+      update
+    );
+
+  },
+  {
+    passive: true
+  }
+);
+
+
+/* ==========================================
+   RESIZE
+========================================== */
+
+window.addEventListener(
+  "resize",
+  update
+);
+
+
+/* ==========================================
+   INITIALISE
+========================================== */
+
+update();
+
+</script>
+
+</body>
+</html>
